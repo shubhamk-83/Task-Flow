@@ -1,45 +1,50 @@
-# TaskFlow — MERN Task Management Application
+# TaskFlow – MERN Task Management Application
 
-TaskFlow is a full-stack task management application built with the MERN stack. It allows users to create, organize, update, search, filter, and delete tasks through a clean and responsive dashboard.
+TaskFlow is a full-stack task management application built using the MERN stack. It helps users organize tasks, manage priorities, track progress, and view task statistics through a simple and responsive dashboard.
 
-This project was developed as part of a MERN Stack technical assignment.
+I built this project as part of the StartupMeu MERN Stack Development Task, using Kiro AI to assist with development and debugging.
+
+## Live Demo
+
+- Frontend: https://task-flow-eight-gilt.vercel.app/
+- Backend API: https://task-flow-2-s3ph.onrender.com/api/tasks
+- GitHub Repository: https://github.com/shubhamk-83/Task-Flow
 
 ## Features
 
-- Create, edit, and delete tasks.
-- Set task priorities: Low, Medium, and High.
-- Track task status: Pending and Completed.
-- Search tasks by title.
+- Create, view, edit, and delete tasks.
+- Mark tasks as pending or completed.
+- Set task priorities to low, medium, or high.
+- Search tasks by keyword.
 - Filter tasks by status and priority.
-- View dashboard statistics.
-- Display toast notifications for successful and failed operations.
-- Responsive user interface.
-- Persist task data in MongoDB Atlas.
-- RESTful API architecture.
-- Input validation and error handling.
+- View dashboard statistics for total, pending, completed, and priority-wise tasks.
+- Receive toast notifications for task operations.
+- Store tasks in MongoDB so they remain available after refreshing the page.
+- Use the application on desktop and mobile screens.
+- Handle API validation and errors.
 
 ## Technologies Used
 
-### Frontend
-- React
+Frontend:
+- React.js
 - Vite
 - Tailwind CSS
 - Axios
 - React Hot Toast
-- Google Fonts (Inter)
 
-### Backend
+Backend:
 - Node.js
 - Express.js
 - MongoDB Atlas
 - Mongoose
-- express-validator
+- Express Validator
 - dotenv
 
-### Development Tools
-- Kiro AI IDE
-- Git
-- GitHub
+Tools and Deployment:
+- Kiro AI
+- Git and GitHub
+- Vercel for frontend deployment
+- Render for backend deployment
 
 ## Project Structure
 
@@ -48,134 +53,174 @@ Task-Flow/
 ├── client/
 │   ├── src/
 │   │   ├── api/
+│   │   │   └── tasks.js
 │   │   ├── components/
+│   │   │   ├── StatsBar.jsx
+│   │   │   ├── TaskCard.jsx
+│   │   │   ├── TaskFilters.jsx
+│   │   │   └── TaskForm.jsx
 │   │   ├── pages/
+│   │   │   └── Dashboard.jsx
 │   │   ├── App.jsx
-│   │   ├── main.jsx
-│   │   └── index.css
-│   ├── index.html
+│   │   ├── index.css
+│   │   └── main.jsx
+│   ├── .env.example
 │   └── package.json
+│
 ├── server/
 │   ├── config/
+│   │   └── db.js
 │   ├── controllers/
+│   │   └── taskController.js
 │   ├── middleware/
+│   │   └── errorHandler.js
 │   ├── models/
+│   │   └── Task.js
 │   ├── routes/
-│   ├── server.js
+│   │   └── taskRoutes.js
+│   ├── .env.example
 │   ├── package.json
-│   └── .env.example
+│   └── server.js
+│
 ├── .gitignore
-└── README.md
+└── readme.md
 ```
 
-## Prerequisites
+## Getting Started
 
-Before running the application, install:
+### Prerequisites
+
+Make sure you have the following installed:
 
 - Node.js and npm
-- A MongoDB Atlas account
 - Git
+- A MongoDB Atlas account or a local MongoDB instance
 
-## Installation and Setup
-
-### 1. Clone the repository
+### 1. Clone the Repository
 
 ```bash
 git clone https://github.com/shubhamk-83/Task-Flow.git
 cd Task-Flow
 ```
 
-### 2. Set up the backend
+### 2. Set Up the Backend
+
+Open a terminal and run:
 
 ```bash
 cd server
 npm install
 ```
 
-Create a `.env` file inside the `server` directory using `.env.example` as a reference.
-
-Configure the following environment variables:
+Create a `.env` file inside the server directory and add:
 
 ```env
 PORT=5000
-MONGODB_URI=your_mongodb_connection_string
 NODE_ENV=development
+MONGODB_URI=your_mongodb_connection_string
 CLIENT_ORIGIN=http://localhost:5173
 ```
 
-Replace `your_mongodb_connection_string` with your MongoDB Atlas connection string.
-
-Never commit your actual `.env` file or database credentials to GitHub.
+Replace `your_mongodb_connection_string` with your own MongoDB connection string.
 
 Start the backend:
 
 ```bash
-npm run dev
+npm start
 ```
 
-The backend runs on `http://localhost:5000`.
+The backend should run at `http://localhost:5000`.
 
-### 3. Set up the frontend
+### 3. Set Up the Frontend
 
-Open a second terminal from the project root:
+Open another terminal from the project root and run:
 
 ```bash
 cd client
 npm install
+```
+
+Create a `.env` file inside the client directory:
+
+```env
+VITE_API_URL=http://localhost:5000/api
+```
+
+Start the frontend:
+
+```bash
 npm run dev
 ```
 
-Open the local URL displayed by Vite, usually:
-
-`http://localhost:5173`
+Open the local URL displayed by Vite, usually `http://localhost:5173`.
 
 ## API Endpoints
 
+The base API path is `/api/tasks`.
+
 | Method | Endpoint | Description |
 |---|---|---|
-| GET | `/api/tasks` | Retrieve tasks |
+| GET | `/api/tasks` | Get tasks and dashboard statistics |
 | POST | `/api/tasks` | Create a task |
 | PUT | `/api/tasks/:id` | Update a task |
 | DELETE | `/api/tasks/:id` | Delete a task |
 
-The GET endpoint supports query parameters for searching and filtering tasks by status and priority.
+Tasks support the following properties:
 
-## Environment Variables
+- `title`: Task title
+- `description`: Task description
+- `status`: Pending or completed
+- `priority`: Low, medium, or high
 
-| Variable | Description |
-|---|---|
-| `PORT` | Backend server port |
-| `MONGODB_URI` | MongoDB Atlas connection string |
-| `NODE_ENV` | Application environment |
-| `CLIENT_ORIGIN` | Allowed frontend origin |
+The API also supports searching and filtering tasks through query parameters.
 
-## AI Development Experience
+Example:
 
-Kiro was used as an AI-assisted development tool during this project.
+```text
+/api/tasks?status=pending&priority=high
+```
 
-The development process involved reviewing AI-generated suggestions, running the application, testing functionality, and troubleshooting configuration issues.
+## AI Development Tool
 
-Examples of AI-assisted tasks included:
+I used Kiro AI during the development of TaskFlow.
 
-1. Planning the application architecture and project folder structure.
-2. Generating and refining the Express API and MongoDB integration.
-3. Developing reusable React components for task management.
-4. Troubleshooting the MongoDB connection configuration.
-5. Integrating toast notifications and reviewing frontend build output.
+### AI Development Experience
 
-AI-generated code was reviewed and tested during development to verify that the application behaved as expected.
+Kiro helped me during different stages of development, including component creation, API implementation, database integration, and debugging.
+
+I used it to speed up development and work through implementation issues. I also ran the application, tested its features, and checked the generated code to make sure the application worked as expected.
+
+This experience helped me understand how AI development tools can assist with building applications while still requiring developers to review code, understand the implementation, and fix problems when they occur.
+
+### Tasks Where I Used Kiro
+
+1. Application structure: Used Kiro to help organize the frontend and backend into separate directories and maintain a clear project structure.
+
+2. React components: Used Kiro to assist with creating reusable components for task cards, forms, filters, and dashboard statistics.
+
+3. REST API development: Used Kiro to assist with implementing Express routes and controller logic for creating, retrieving, updating, and deleting tasks.
+
+4. Database integration and debugging: Used Kiro to help with MongoDB and Mongoose integration and investigate database connection issues.
+
+5. UI improvements and deployment: Used Kiro to assist with notification handling, production configuration, API connectivity, and troubleshooting deployment issues.
 
 ## Future Improvements
 
-- User authentication and personal task lists.
-- Task due dates and reminders.
-- Task sorting and additional filters.
-- Deployment with a hosted frontend and backend.
+- Add user authentication and individual task management.
+- Introduce task deadlines and reminders.
+- Add pagination for larger task lists.
+- Improve dashboard analytics.
+- Add automated tests for frontend components and backend APIs.
 
 ## Author
 
-**Shubham Kumar**
+Shubham Kumar
 
 GitHub: https://github.com/shubhamk-83
-
+linkdin:https://www.linkedin.com/in/shubham-kumar-31354836b/
 Portfolio: https://protfolio-2-beryl.vercel.app/
+Gmail:shubhamrajput5641@gmail.com
+
+---
+
+Built with React, Node.js, Express.js, MongoDB, and assistance from Kiro AI.
