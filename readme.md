@@ -6,8 +6,7 @@ I built this project as part of the StartupMeu MERN Stack Development Task, usin
 
 ## Live Demo
 
-- Frontend: https://task-flow-eight-gilt.vercel.app/
-- Backend API: https://task-flow-2-s3ph.onrender.com/api/tasks
+live -> https://task-flow-eight-gilt.vercel.app/
 - GitHub Repository: https://github.com/shubhamk-83/Task-Flow
 
 ## Features
